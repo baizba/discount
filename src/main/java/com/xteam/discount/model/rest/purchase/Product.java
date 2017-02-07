@@ -38,4 +38,12 @@ public class Product {
     public void setSize(int size) {
         this.size = size;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Product[").append("id:").append(id).append(",face:").append(face).append(",price:").append(price)
+                .append(",size:").append(size).append("]");
+        return sb.toString();
+    }
 }

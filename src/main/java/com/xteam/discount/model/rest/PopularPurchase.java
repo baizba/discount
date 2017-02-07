@@ -56,4 +56,12 @@ public class PopularPurchase {
     public void setRecent(List<String> recent) {
         this.recent = recent;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("PopularPurchase:[id:").append(id).append(",face:").append(face).append(",price:").append(price)
+                .append(",size:").append(size).append(",recent:").append(getRecent()).append("]");
+        return sb.toString();
+    }
 }
