@@ -40,4 +40,12 @@ public class PurchaseEntry {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[id:").append(id).append(", username:").append(username).append(",productId:").append(productId)
+        .append(",date:").append(date).append("]");
+        return sb.toString();
+    }
 }

@@ -1,10 +1,17 @@
 package com.xteam.discount.model.rest.purchase;
 
-import java.util.List;
+import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 public class Purchase {
 
+    private List<PurchaseEntry> purchases;
+
     public List<PurchaseEntry> getPurchases() {
+        if(CollectionUtils.isEmpty(purchases)) {
+            purchases = new ArrayList<>();
+        }
         return purchases;
     }
 
@@ -12,5 +19,8 @@ public class Purchase {
         this.purchases = purchases;
     }
 
-    private List<PurchaseEntry> purchases;
+    @Override
+    public String toString() {
+        return "purchases[" + getPurchases().toString() + "]";
+    }
 }
