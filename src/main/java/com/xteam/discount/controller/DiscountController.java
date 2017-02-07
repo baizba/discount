@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,10 +34,14 @@ public class DiscountController {
         List<PopularPurchase> popularPurchases = discountService.getPopularPurchasesByUsername(username);
         LOG.debug("popular purchases REST call result: {}", popularPurchases);
 
+        //when nothing found for username show only error text
+        //write manually to the response, flush and close so that the spring MVC does not add something
         if (CollectionUtils.isEmpty(popularPurchases)) {
             try {
-                response.getOutputStream().print("User with username of " + username + " was not found");
-                response.flushBuffer();
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.print("User with username of " + username + " was not found");
+                outputStream.flush();
+                outputStream.close();
             } catch (IOException e) {
                 LOG.error("Can not write to response any more. Error is ", e);
             }
