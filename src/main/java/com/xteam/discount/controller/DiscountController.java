@@ -1,7 +1,7 @@
 package com.xteam.discount.controller;
 
 import com.xteam.discount.model.rest.PopularPurchase;
-import com.xteam.discount.service.rest.purchase.DiscountService;
+import com.xteam.discount.service.rest.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

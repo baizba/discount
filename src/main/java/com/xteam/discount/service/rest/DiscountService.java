@@ -1,4 +1,4 @@
-package com.xteam.discount.service.rest.purchase;
+package com.xteam.discount.service.rest;
 
 import com.xteam.discount.model.rest.PopularPurchase;
 
@@ -6,7 +6,8 @@ import java.util.List;
 
 /**
  * This Service is suposed to combine all three calls to the "external" REST interface (purchase interface)
- * and gives us back the form we need it
+ * and gives us back the response in the form we need it
+ * @see PopularPurchase
  */
 public interface DiscountService {
 

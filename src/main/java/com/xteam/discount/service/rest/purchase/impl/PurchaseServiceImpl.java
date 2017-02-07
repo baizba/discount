@@ -1,8 +1,9 @@
 package com.xteam.discount.service.rest.purchase.impl;
 
+import com.xteam.discount.model.rest.purchase.ProductByProductId;
 import com.xteam.discount.model.rest.purchase.PurchaseByProduct;
 import com.xteam.discount.model.rest.purchase.PurchaseByUser;
-import com.xteam.discount.service.rest.PurchaseService;
+import com.xteam.discount.service.rest.purchase.PurchaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,12 @@ public class PurchaseServiceImpl implements PurchaseService {
     public PurchaseByProduct getPurchaseByProduct(int productId) {
         String url = "http://127.0.0.1:8000/api/purchases/by_product/" + productId;
         return getRestResponse(url, PurchaseByProduct.class);
+    }
+
+    @Override
+    public ProductByProductId getProductByProductId(int productId) {
+        String url = "http://127.0.0.1:8000/api/products/" + productId;
+        return getRestResponse(url, ProductByProductId.class);
     }
 
     private <T> T getRestResponse(String url, Class<T> responseModelType) {

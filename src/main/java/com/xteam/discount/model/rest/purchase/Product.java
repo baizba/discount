@@ -1,18 +1,11 @@
-package com.xteam.discount.model.rest;
+package com.xteam.discount.model.rest.purchase;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * This is a REST response which we use as the "exit" structure of our backend
- */
-public class PopularPurchase {
+public class Product {
 
     private int id;
     private String face;
     private double price;
     private int size;
-    private List<String> recent;
 
     public int getId() {
         return id;
@@ -44,16 +37,5 @@ public class PopularPurchase {
 
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public List<String> getRecent() {
-        if(recent == null) {
-            recent = new ArrayList<>();
-        }
-        return recent;
-    }
-
-    public void setRecent(List<String> recent) {
-        this.recent = recent;
     }
 }
