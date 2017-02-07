@@ -4,18 +4,18 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
-public class Purchase {
+public class PurchaseByUser {
 
-    private List<PurchaseEntry> purchases;
+    private List<PurchaseByUserEntry> purchases;
 
-    public List<PurchaseEntry> getPurchases() {
+    public List<PurchaseByUserEntry> getPurchases() {
         if(CollectionUtils.isEmpty(purchases)) {
             purchases = new ArrayList<>();
         }
         return purchases;
     }
 
-    public void setPurchases(List<PurchaseEntry> purchases) {
+    public void setPurchases(List<PurchaseByUserEntry> purchases) {
         this.purchases = purchases;
     }
 

@@ -1,8 +1,7 @@
 package com.xteam.discount.service.rest.purchase.impl;
 
-import com.xteam.discount.model.rest.purchase.Purchase;
+import com.xteam.discount.model.rest.purchase.PurchaseByUser;
 import com.xteam.discount.service.rest.PurchaseService;
-import com.xteam.discount.service.rest.impl.DiscountServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -15,17 +14,17 @@ public class PurchaseServiceImpl implements PurchaseService {
     private static final Logger LOG = LoggerFactory.getLogger(PurchaseServiceImpl.class);
 
     @Override
-    public Purchase getPurchaseByUser(String userName) {
+    public PurchaseByUser getPurchaseByUser(String userName) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://127.0.0.1:8000/api/purchases/by_user/" + userName + "?limit=5";
 
         try{
-            Purchase purchase = restTemplate.getForObject(url, Purchase.class);
-            LOG.debug("calling REST: " + url + " response is: " + purchase.toString());
-            return purchase;
+            PurchaseByUser purchaseByUser = restTemplate.getForObject(url, PurchaseByUser.class);
+            LOG.debug("calling REST: " + url + " response is: " + purchaseByUser.toString());
+            return purchaseByUser;
         } catch (RestClientException ex) {
             LOG.error("error making REST call to " + url, ex);
-            return new Purchase();
+            return new PurchaseByUser();
         }
 
     }

@@ -1,6 +1,6 @@
 package com.xteam.discount.service.rest;
 
-import com.xteam.discount.model.rest.purchase.Purchase;
+import com.xteam.discount.model.rest.purchase.PurchaseByUser;
 
 /**
  * Interface for communication with the external REST services (purchase interface)
@@ -12,5 +12,5 @@ public interface PurchaseService {
      * @param userName
      * @return list of the users purchases
      */
-    public Purchase getPurchaseByUser(String userName);
+    public PurchaseByUser getPurchaseByUser(String userName);
 }

@@ -2,7 +2,7 @@ package com.xteam.discount.model.rest.purchase;
 
 import java.util.Date;
 
-public class PurchaseEntry {
+public class PurchaseByUserEntry {
 
     private int id;
     private String username;
