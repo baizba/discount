@@ -10,6 +10,8 @@ import com.xteam.discount.service.rest.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +56,12 @@ public class DiscountServiceImpl implements DiscountService {
 
             return popularPurchase;
         }).collect(Collectors.toList());
+
+        //sort the list so that the products whoe are purchased the most come to top
+        Collections.sort(popularPurchases, (o1, o2) -> {
+            return Integer.compare(o2.getRecent().size(), o1.getRecent().size());
+        });
+
         return popularPurchases;
     }
 }
