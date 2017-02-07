@@ -16,31 +16,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public PurchaseByUser getPurchaseByUser(String userName) {
-        RestTemplate restTemplate = new RestTemplate();
         String url = "http://127.0.0.1:8000/api/purchases/by_user/" + userName + "?limit=5";
-
-        try{
-            PurchaseByUser purchaseByUser = restTemplate.getForObject(url, PurchaseByUser.class);
-            LOG.debug("calling REST: " + url + " response is: " + purchaseByUser.toString());
-            return purchaseByUser;
-        } catch (RestClientException ex) {
-            LOG.error("error making REST call to " + url, ex);
-            return new PurchaseByUser();
-        }
+        return getRestResponse(url, PurchaseByUser.class);
     }
 
     @Override
     public PurchaseByProduct getPurchaseByProduct(int productId) {
-        RestTemplate restTemplate = new RestTemplate();
         String url = "http://127.0.0.1:8000/api/purchases/by_product/" + productId;
+        return getRestResponse(url, PurchaseByProduct.class);
+    }
 
-        try{
-            PurchaseByProduct purchaseByProduct = restTemplate.getForObject(url, PurchaseByProduct.class);
-            LOG.debug("calling REST: " + url + " response is: " + purchaseByProduct.toString());
-            return purchaseByProduct;
+    private <T> T getRestResponse(String url, Class<T> responseModelType) {
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            T response = restTemplate.getForObject(url, responseModelType);
+            LOG.debug("calling REST: " + url + " response is: " + response.toString());
+            return response;
         } catch (RestClientException ex) {
-            LOG.error("error making REST call to " + url, ex);
-            return new PurchaseByProduct();
+            LOG.error("error making REST call " + url, ex);
+            return null;
         }
     }
 }
