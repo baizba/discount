@@ -1,5 +1,6 @@
 package com.xteam.discount.service.rest.purchase.impl;
 
+import com.xteam.discount.model.rest.purchase.PurchaseByProduct;
 import com.xteam.discount.model.rest.purchase.PurchaseByUser;
 import com.xteam.discount.service.rest.PurchaseService;
 import org.slf4j.Logger;
@@ -26,6 +27,20 @@ public class PurchaseServiceImpl implements PurchaseService {
             LOG.error("error making REST call to " + url, ex);
             return new PurchaseByUser();
         }
+    }
 
+    @Override
+    public PurchaseByProduct getPurchaseByProduct(int productId) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://127.0.0.1:8000/api/purchases/by_product/" + productId;
+
+        try{
+            PurchaseByProduct purchaseByProduct = restTemplate.getForObject(url, PurchaseByProduct.class);
+            LOG.debug("calling REST: " + url + " response is: " + purchaseByProduct.toString());
+            return purchaseByProduct;
+        } catch (RestClientException ex) {
+            LOG.error("error making REST call to " + url, ex);
+            return new PurchaseByProduct();
+        }
     }
 }

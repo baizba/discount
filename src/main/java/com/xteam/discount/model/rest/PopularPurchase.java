@@ -1,5 +1,6 @@
 package com.xteam.discount.model.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +47,9 @@ public class PopularPurchase {
     }
 
     public List<String> getRecent() {
+        if(recent == null) {
+            recent = new ArrayList<>();
+        }
         return recent;
     }
 

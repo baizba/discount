@@ -9,7 +9,7 @@ public class PurchaseByUser {
     private List<PurchaseByUserEntry> purchases;
 
     public List<PurchaseByUserEntry> getPurchases() {
-        if(CollectionUtils.isEmpty(purchases)) {
+        if(purchases == null) {
             purchases = new ArrayList<>();
         }
         return purchases;
