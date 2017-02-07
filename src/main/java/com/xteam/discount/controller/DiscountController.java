@@ -1,6 +1,8 @@
 package com.xteam.discount.controller;
 
-import com.xteam.discount.model.Product;
+import com.xteam.discount.model.rest.PopularPurchase;
+import com.xteam.discount.service.rest.purchase.DiscountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +14,20 @@ import java.util.List;
 @RestController
 public class DiscountController {
 
-    @RequestMapping("/api/recent_purchases/{username}")
-    public List<Product> greeting(@PathVariable String username) {
-        return new ArrayList<Product>(){
+    @Autowired
+    private DiscountService discountService;
+
+    @RequestMapping("/api/recent_purchases/{username:.+}")
+    public List<PopularPurchase> greeting(@PathVariable String username) {
+        List<PopularPurchase> popularPurchases = discountService.getPopularPurchasesByUsername(username);
+        return popularPurchases;
+    }
+
+    //TODO this should be extracted for integration test
+    private List<PopularPurchase> getProductsForTest() {
+        return new ArrayList<PopularPurchase>(){
             {
-                add(new Product(){
+                add(new PopularPurchase(){
                     {
                         setId(123);
                         setFace("o.o");
@@ -32,7 +43,7 @@ public class DiscountController {
                     }
                 });
 
-                add(new Product(){
+                add(new PopularPurchase(){
                     {
                         setId(456);
                         setFace("x.x");

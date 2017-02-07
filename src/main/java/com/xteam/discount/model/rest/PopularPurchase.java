@@ -1,11 +1,11 @@
-package com.xteam.discount.model;
+package com.xteam.discount.model.rest;
 
 import java.util.List;
 
 /**
  * Created by baizb on 07.02.2017.
  */
-public class Product {
+public class PopularPurchase {
 
     private int id;
     private String face;
