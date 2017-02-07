@@ -17,4 +17,9 @@ public class PurchaseByProduct {
     public void setPurchases(List<PurchaseByProductEntry> purchases) {
         this.purchases = purchases;
     }
+
+    @Override
+    public String toString() {
+        return "PurchaseByProduct" + getPurchases().toString();
+    }
 }

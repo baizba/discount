@@ -44,8 +44,8 @@ public class PurchaseByUserEntry {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[id:").append(id).append(", username:").append(username).append(",productId:").append(productId)
-        .append(",date:").append(date).append("]");
+        sb.append("id:").append(id).append(", username:").append(username).append(",productId:").append(productId)
+        .append(",date:").append(date);
         return sb.toString();
     }
 }

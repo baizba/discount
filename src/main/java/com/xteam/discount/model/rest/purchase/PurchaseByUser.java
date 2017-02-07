@@ -21,6 +21,6 @@ public class PurchaseByUser {
 
     @Override
     public String toString() {
-        return "purchases[" + getPurchases().toString() + "]";
+        return "PurchaseByUser" + getPurchases().toString();
     }
 }
