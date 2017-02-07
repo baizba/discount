@@ -6,6 +6,7 @@ import com.xteam.discount.model.rest.purchase.PurchaseByUser;
 import com.xteam.discount.service.rest.purchase.PurchaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -15,21 +16,30 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PurchaseServiceImpl.class);
 
+    @Value("${rest.purchase.url.purchase.user}")
+    private String purchaseByUserUrl;
+
+    @Value("${rest.purchase.url.purchase.product}")
+    private String purchaseByProductUrl;
+
+    @Value("${rest.purchase.url.product.productid}")
+    private String productByProductIdUrl;
+
     @Override
-    public PurchaseByUser getPurchaseByUser(String userName) {
-        String url = "http://127.0.0.1:8000/api/purchases/by_user/" + userName + "?limit=5";
+    public PurchaseByUser getPurchaseByUser(String username) {
+        String url = purchaseByUserUrl.replace("{username}", username);
         return getRestResponse(url, PurchaseByUser.class);
     }
 
     @Override
     public PurchaseByProduct getPurchaseByProduct(int productId) {
-        String url = "http://127.0.0.1:8000/api/purchases/by_product/" + productId;
+        String url = purchaseByProductUrl.replace("{productId}", String.valueOf(productId));
         return getRestResponse(url, PurchaseByProduct.class);
     }
 
     @Override
     public ProductByProductId getProductByProductId(int productId) {
-        String url = "http://127.0.0.1:8000/api/products/" + productId;
+        String url = productByProductIdUrl.replace("{productId}", String.valueOf(productId));
         return getRestResponse(url, ProductByProductId.class);
     }
 

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Main entrypoint to our backend application
+ */
 @RestController
 public class DiscountController {
 
