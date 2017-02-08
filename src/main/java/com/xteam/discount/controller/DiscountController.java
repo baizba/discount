@@ -25,7 +25,7 @@ import java.util.List;
 
 
 /**
- * Main entrypoint to our backend application
+ * Main entry point to our backend application
  */
 @RestController
 public class DiscountController {
@@ -59,42 +59,4 @@ public class DiscountController {
         }
     }
 
-    //TODO this should be extracted for integration test
-    private List<PopularPurchase> getProductsForTest() {
-        return new ArrayList<PopularPurchase>() {
-            {
-                add(new PopularPurchase() {
-                    {
-                        setId(123);
-                        setFace("o.o");
-                        setPrice(123.56);
-                        setSize(23);
-                        setRecent(new ArrayList<String>(3) {
-                            {
-                                add("yoko");
-                                add("meli");
-                                add("igo");
-                            }
-                        });
-                    }
-                });
-
-                add(new PopularPurchase() {
-                    {
-                        setId(456);
-                        setFace("x.x");
-                        setPrice(145.57);
-                        setSize(28);
-                        setRecent(new ArrayList<String>(3) {
-                            {
-                                add("rale");
-                                add("zloki");
-                                add("gagi");
-                            }
-                        });
-                    }
-                });
-            }
-        };
-    }
 }
