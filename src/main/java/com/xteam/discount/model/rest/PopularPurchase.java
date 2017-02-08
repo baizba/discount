@@ -10,7 +10,7 @@ public class PopularPurchase {
 
     private int id;
     private String face;
-    private double price;
+    private int price;
     private int size;
     private List<String> recent;
 
@@ -30,11 +30,11 @@ public class PopularPurchase {
         this.face = face;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
