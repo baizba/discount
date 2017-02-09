@@ -45,13 +45,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     private <T> T getRestResponse(String url, Class<T> responseModelType) {
         RestTemplate restTemplate = new RestTemplate();
-        try {
-            T response = restTemplate.getForObject(url, responseModelType);
-            LOG.debug("calling REST: " + url + " response is: " + response.toString());
-            return response;
-        } catch (RestClientException ex) {
-            LOG.error("error making REST call " + url, ex);
-            return null;
-        }
+        T response = restTemplate.getForObject(url, responseModelType);
+        LOG.debug("calling REST: " + url + " response is: " + response.toString());
+        return response;
     }
 }

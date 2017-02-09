@@ -139,6 +139,7 @@ public class DiscountApplicationIntegrationTests {
 
     @Test
     public void testDiscountControllerNoUser() {
+        //i used a non existing username, we should just get a message
         ResponseEntity<String> response = discountController.getPopularPurchasesByUsername("Sandra");
         assertEquals("User with username of 'Sandra' was not found", response.getBody());
     }
