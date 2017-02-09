@@ -36,9 +36,6 @@ public class DiscountApplicationIntegrationTests {
     private PurchaseService purchaseService;
 
     @Autowired
-    private DiscountService discountService;
-
-    @Autowired
     DiscountController discountController;
 
     @Before
