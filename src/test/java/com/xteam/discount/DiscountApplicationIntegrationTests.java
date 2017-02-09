@@ -1,35 +1,45 @@
-package com.xteam.discount.service.rest.impl;
+package com.xteam.discount;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xteam.discount.controller.DiscountController;
 import com.xteam.discount.model.rest.PopularPurchase;
 import com.xteam.discount.model.rest.purchase.*;
 import com.xteam.discount.service.rest.DiscountService;
 import com.xteam.discount.service.rest.purchase.PurchaseService;
+
+import static org.junit.Assert.*;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.mockito.Mockito.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import java.io.IOException;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DiscountServiceImplTest {
+public class DiscountApplicationIntegrationTests {
 
     @MockBean
     private PurchaseService purchaseService;
 
     @Autowired
     private DiscountService discountService;
+
+    @Autowired
+    DiscountController discountController;
 
     @Before
     public void setup() {
@@ -105,15 +115,39 @@ public class DiscountServiceImplTest {
     }
 
     @Test
-    public void contextLoads() {
-        List<PopularPurchase> response = discountService.getPopularPurchasesByUsername("Brano");
-        assertEquals(1, response.size());
+    public void testDiscountServiceSuccessfullCall() {
+        List<PopularPurchase> popularPurchases = discountService.getPopularPurchasesByUsername("Brano");
+        assertEquals(1, popularPurchases.size());
+        assertPopularPurchaseResponse(popularPurchases);
+    }
 
-        PopularPurchase popularPurchase = response.get(0);
+    @Test
+    public void testDiscountControllerSuccessfullCall() {
+        ResponseEntity<String> response = discountController.getPopularPurchasesByUsername("Brano");
+        ObjectMapper mapper = new ObjectMapper();
+        List<PopularPurchase> popularPurchases = null;
+        //check if you can convert the object back to json
+        //then you know that the json is valid
+        try {
+            popularPurchases = mapper.readValue(response.getBody(), new TypeReference<List<PopularPurchase>>() {});
+        } catch (IOException e) {
+            fail("test failed because json could not be converted to POJO " + e.getMessage());
+        }
+        //check the values again to be sure nothing has changed
+        assertPopularPurchaseResponse(popularPurchases);
+    }
+
+    @Test
+    public void testDiscountControllerNoUser() {
+        ResponseEntity<String> response = discountController.getPopularPurchasesByUsername("Sandra");
+        assertEquals("User with username of 'Sandra' was not found", response.getBody());
+    }
+
+    private void assertPopularPurchaseResponse(List<PopularPurchase> popularPurchases) {
+        PopularPurchase popularPurchase = popularPurchases.get(0);
         assertEquals(1234, popularPurchase.getId());
         assertEquals(100, popularPurchase.getPrice());
         assertEquals(10, popularPurchase.getSize());
-
         assertTrue(popularPurchase.getRecent().containsAll(Arrays.asList(new String[] {"Brano", "John"})));
     }
 

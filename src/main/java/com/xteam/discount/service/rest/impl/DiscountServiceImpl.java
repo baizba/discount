@@ -30,6 +30,10 @@ public class DiscountServiceImpl implements DiscountService {
     public List<PopularPurchase> getPopularPurchasesByUsername(String username) {
         PurchaseByUser purchaseByUser = purchaseService.getPurchaseByUser(username);
 
+        if(purchaseByUser == null) {
+            return Collections.emptyList();
+        }
+
         /*
         1. First get the purchases for the given user name
         and map it to our response model the way we want to. We can already use the product id which we get here.
@@ -44,15 +48,19 @@ public class DiscountServiceImpl implements DiscountService {
              users to our response
              */
             PurchaseByProduct purchaseByProduct = purchaseService.getPurchaseByProduct(productId);
-            purchaseByProduct.getPurchases().forEach(purchaseByProductEntry ->
-                    popularPurchase.getRecent().add(purchaseByProductEntry.getUsername()));
+            if(purchaseByProduct != null) {
+                purchaseByProduct.getPurchases().forEach(purchaseByProductEntry ->
+                        popularPurchase.getRecent().add(purchaseByProductEntry.getUsername()));
+            }
 
             //3. get the product specific info and attach it to our response
             ProductByProductId productByProductId = purchaseService.getProductByProductId(productId);
-            Product product = productByProductId.getProduct();
-            popularPurchase.setPrice(product.getPrice());
-            popularPurchase.setSize(product.getSize());
-            popularPurchase.setFace(product.getFace());
+            if(productByProductId != null) {
+                Product product = productByProductId.getProduct();
+                popularPurchase.setPrice(product.getPrice());
+                popularPurchase.setSize(product.getSize());
+                popularPurchase.setFace(product.getFace());
+            }
 
             return popularPurchase;
         }).collect(Collectors.toList());
