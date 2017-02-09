@@ -17,4 +17,11 @@ public interface DiscountService {
      * @return the list of popular purchases
      */
     public List<PopularPurchase> getPopularPurchasesByUsername(String username);
+
+    /**
+     * Check if the user with this username exists
+     * @param username
+     * @return true or false depending on the result
+     */
+    public boolean userExists(String username);
 }

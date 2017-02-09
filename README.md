@@ -84,3 +84,4 @@ it that it gives us the same message like in the case when the username is not f
 not to "catch" the error on our side and rather propagate the error to the consumer as JSON.
 Even though the change/implementation is trivial it is a question if the first version would be better. Depends how and
 where the application is used.
+- When looking into Javadoc please pay attention to the interfaces as there is alot of documentation there.

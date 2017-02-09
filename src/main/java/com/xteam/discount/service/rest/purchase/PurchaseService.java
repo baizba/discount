@@ -30,4 +30,11 @@ public interface PurchaseService {
      */
     public ProductByProductId getProductByProductId(int productId);
 
+    /**
+     * Checks if the given user really exists
+     * @param username
+     * @return true if the user exists and otherwise false
+     */
+    public boolean userExists(String username);
+
 }
