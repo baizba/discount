@@ -112,17 +112,13 @@ public class DiscountApplicationIntegrationTests {
                 });
             }
         });
+
+        //mock the call to check if user exists
+        when(purchaseService.userExists("Brano")).thenReturn(Boolean.TRUE);
     }
 
     @Test
-    public void testDiscountServiceSuccessfullCall() {
-        List<PopularPurchase> popularPurchases = discountService.getPopularPurchasesByUsername("Brano");
-        assertEquals(1, popularPurchases.size());
-        assertPopularPurchaseResponse(popularPurchases);
-    }
-
-    @Test
-    public void testDiscountControllerSuccessfullCall() {
+    public void testPopularPurchaseFound() {
         ResponseEntity<String> response = discountController.getPopularPurchasesByUsername("Brano");
         ObjectMapper mapper = new ObjectMapper();
         List<PopularPurchase> popularPurchases = null;
@@ -138,7 +134,7 @@ public class DiscountApplicationIntegrationTests {
     }
 
     @Test
-    public void testDiscountControllerNoUser() {
+    public void testPopularPurchaseNoUser() {
         //i used a non existing username, we should just get a message
         ResponseEntity<String> response = discountController.getPopularPurchasesByUsername("Sandra");
         assertEquals("User with username of 'Sandra' was not found", response.getBody());
