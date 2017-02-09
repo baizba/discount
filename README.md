@@ -65,3 +65,22 @@ to take effect.
    }
 ]
 ```
+
+## Notes for reviewer
+
+- I have made the app configurable (application.properties)
+- I also made a few simple integration tests
+- I taught about package structure. Our domain package is `com.xteam.discount`. Everything which is in subpackage 
+`purchase` is a part which works with the external purchase-master interface. I think here there could be a bit 
+different structure.
+- I taught about using different frameworks for REST and even taught about "plain-java" application without frameworks.
+But then i decided that this could be done with the Spring Boot as for the basic things i needed it was enough.
+- I taught about error handling. If you are making a request from REST client you will get JSON formatted error
+response which is almost a valid solution. Only thing not nice is that it will even include too much technical
+info for the consumer. If you are making requests form a web client then you will get default spring error page.
+Of course error details are in the log. I did not want to "overcomit" and invest in a better error handling.
+- Also the question is how should our app work if the external interface is down (purchase-master). First i implemented
+it that it gives us the same message like in the case when the username is not found. But then in the end i decided
+not to "catch" the error on our side and rather propagate the error to the consumer as JSON.
+Even though the change/implementation is trivial it is a question if the first version would be better. Depends how and
+where the application is used.
